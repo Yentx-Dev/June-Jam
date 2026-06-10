@@ -841,7 +841,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::PlayerSpit
   spitStrength: 200
   minSize: 0.8
-  maxTrash: 40
+  maxTrash: 10
   trashObject: {fileID: 8156631789089008491, guid: b3f4a8ebaacdef948bef064186e1c844, type: 3}
   spawnPoint: {fileID: 1076050601}
 --- !u!1660057539 &9223372036854775807
