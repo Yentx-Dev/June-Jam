@@ -1,3 +1,5 @@
+using System;
+using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -11,6 +13,9 @@ public class PlayerController : MonoBehaviour
     private float horizontalMove;
     private float verticalMove;
     [SerializeField] private float speed;
+    [SerializeField] private float maxSpeed = 10;
+    [SerializeField] private float minSpeed = 2;
+    [SerializeField] private float boostDuration = 1;
     [SerializeField] private Transform camera;
 
     private Vector3 moveDirection;
@@ -55,4 +60,31 @@ public class PlayerController : MonoBehaviour
         rb.AddForce(moveDirection * speed, ForceMode.Acceleration);
     }
 
+    public IEnumerator speedBoost(float value)
+    {
+        // add boost
+        Debug.Log($"Added speed at {Time.time}");
+        addSpeed(value);
+        // wait for boost duration
+        yield return StartCoroutine(boostDelay());
+        resetSpeed();
+        Debug.Log($"Reset speed at {Time.time}");
+    }
+
+    public IEnumerator boostDelay()
+    {
+        yield return new WaitForSeconds(boostDuration);
+    }
+    public void addSpeed(float value)
+    {
+        speed = Math.Min(value, maxSpeed); //set to max if value>max
+        Debug.Log($"Speed set to {speed}");
+    }
+
+    public void resetSpeed()
+    {
+        speed = minSpeed;
+    }
+
+    public float getSpeed(){return speed;}
 }
